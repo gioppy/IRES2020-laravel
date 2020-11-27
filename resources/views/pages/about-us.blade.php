@@ -23,6 +23,10 @@
   @endforelse
 </ul>
 
+@if(session()->has('status'))
+  <p><strong>{{ session()->get('status') }}</strong></p>
+@endif
+
 @error('nome', 'email', 'messaggio')
 <p>{{ $message }}</p>
 @enderror

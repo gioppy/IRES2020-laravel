@@ -8,6 +8,21 @@ use Illuminate\Http\Request;
 
 class AboutController extends Controller {
 
+  public function index() {
+    $contacts = Contact::all()
+      ->filter(function (Contact $contact) {
+        return $contact->id != 2;
+      })
+      ->map(function (Contact $contact) {
+        return [
+          'id' => $contact->id,
+          'nome' => strtoupper($contact->nome),
+        ];
+      });
+
+    return view('about.index', compact('contacts'));
+  }
+
   public function show() {
 
     $users = [
@@ -27,13 +42,24 @@ class AboutController extends Controller {
   public function store(AboutRequest $request) {
     $data = $request->validated();
 
-    $contact = new Contact();
+    /*$contact = new Contact();
     $contact->nome = $data['nome'];
     $contact->email = $data['email'];
     $contact->messaggio = $data['messaggio'];
-    $contact->save();
+    $contact->save();*/
 
-    return redirect()->back();
-    //return redirect()->route('about-us.show');
+    // Mass Assignment
+    /*$contact = Contact::create([
+      'nome' => $data['nome'],
+      'email' => $data['email'],
+      'messaggio' => $data['messaggio'],
+    ]);*/
+
+    $contact = Contact::create($data);
+
+    //return redirect()->back();
+    return redirect()
+      ->route('about-us.show')
+      ->with('status', "Grazie {$contact->nome} per averci contattato.");
   }
 }

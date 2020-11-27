@@ -22,5 +22,6 @@ Route::get('/', function () {
 });*/
 
 //Route::get('/about-us', 'App\Http\Controllers\AboutController@show');
-Route::get('/about-us', [App\Http\Controllers\AboutController::class, 'show']);
+Route::get('/about-us/all', [App\Http\Controllers\AboutController::class, 'index']);
+Route::get('/about-us', [App\Http\Controllers\AboutController::class, 'show'])->name('about-us.show');
 Route::post('/about-us', [App\Http\Controllers\AboutController::class, 'store'])->name('about-us');
