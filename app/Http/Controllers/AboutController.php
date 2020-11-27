@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AboutRequest;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller {
@@ -22,7 +24,16 @@ class AboutController extends Controller {
     return view('pages.about-us')->with(compact('users', 'title'));
   }
 
-  public function store(Request $request) {
-    dd($request);
+  public function store(AboutRequest $request) {
+    $data = $request->validated();
+
+    $contact = new Contact();
+    $contact->nome = $data['nome'];
+    $contact->email = $data['email'];
+    $contact->messaggio = $data['messaggio'];
+    $contact->save();
+
+    return redirect()->back();
+    //return redirect()->route('about-us.show');
   }
 }
