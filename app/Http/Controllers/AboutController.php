@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AboutController extends Controller {
 
+  public function __construct() {
+    //$this->middleware(['auth'])->except(['show', 'store']);
+    $this->middleware(['auth'])->only(['index', 'showContact', 'edit', 'update', 'delete', 'destroy']);
+  }
+
   public function index() {
     // Esempio di Collection applicata a Eloquent
     /*$contacts = Contact::all()
@@ -88,6 +93,16 @@ class AboutController extends Controller {
     $data = $request->validated();
 
     $contact->update($data);
+
+    return redirect()->route('about-us.index');
+  }
+
+  public function delete(Contact $contact) {
+    return view('about.delete', compact('contact'));
+  }
+
+  public function destroy(Contact $contact) {
+    $contact->delete();
 
     return redirect()->route('about-us.index');
   }

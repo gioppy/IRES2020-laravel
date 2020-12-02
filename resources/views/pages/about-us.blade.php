@@ -33,18 +33,6 @@
 
 <form action="{{ route('about-us') }}" method="POST">
   @csrf
-  <label>Nome</label>
-  <input type="text" name="nome" />
-  {{--@error('name')
-  <p>{{ $message }}</p>
-  @enderror--}}
-
-  <label>email</label>
-  <input type="email" name="email" />
-
-  <label>Messaggio</label>
-  <textarea name="messaggio"></textarea>
-
-  <button type="submit">Invia</button>
+  @include('about._partials.form', ['contact' => null])
 </form>
 @endsection

@@ -20,7 +20,7 @@
         <td>
           <a href="{{ route('about-us.show-contact', [$contact]) }}">Show</a>
           <a href="{{ route('about-us.edit', [$contact]) }}">Edit</a>
-          <a href="#">Delete</a>
+          <a href="{{ route('about-us.delete', [$contact]) }}">Delete</a>
         </td>
       </tr>
     @endforeach

@@ -22,7 +22,9 @@ Route::get('/', function () {
 });*/
 
 //Route::get('/about-us', 'App\Http\Controllers\AboutController@show');
-Route::get('/about-us/all', [App\Http\Controllers\AboutController::class, 'index'])->name('about-us.index');
+Route::get('/about-us/all', [App\Http\Controllers\AboutController::class, 'index'])
+  ->name('about-us.index')
+  /*->middleware(['auth', 'verified'])*/;
 Route::get('/about-us', [App\Http\Controllers\AboutController::class, 'show'])->name('about-us.show');
 Route::post('/about-us', [App\Http\Controllers\AboutController::class, 'store'])->name('about-us');
 // passaggio di un parametro sulla route
@@ -33,3 +35,10 @@ Route::get('/about-us/{contact}', [App\Http\Controllers\AboutController::class, 
 
 Route::get('/about-us/{contact}/edit', [App\Http\Controllers\AboutController::class, 'edit'])->name('about-us.edit');
 Route::put('/about-us/{contact}', [App\Http\Controllers\AboutController::class, 'update'])->name('about-us.update');
+
+Route::get('/about-us/{contact}/delete', [App\Http\Controllers\AboutController::class, 'delete'])->name('about-us.delete');
+Route::delete('/about-us/{contact}', [App\Http\Controllers\AboutController::class, 'destroy'])->name('about-us.destroy');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
