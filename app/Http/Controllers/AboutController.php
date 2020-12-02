@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class AboutController extends Controller {
 
   public function index() {
-    $contacts = Contact::all()
+    // Esempio di Collection applicata a Eloquent
+    /*$contacts = Contact::all()
       ->filter(function (Contact $contact) {
         return $contact->id != 2;
       })
@@ -18,7 +19,9 @@ class AboutController extends Controller {
           'id' => $contact->id,
           'nome' => strtoupper($contact->nome),
         ];
-      });
+      });*/
+
+    $contacts = Contact::all();
 
     return view('about.index', compact('contacts'));
   }
@@ -61,5 +64,31 @@ class AboutController extends Controller {
     return redirect()
       ->route('about-us.show')
       ->with('status', "Grazie {$contact->nome} per averci contattato.");
+  }
+
+  // passaggio di un parametro sulla route
+  //public function showContact(int $id) {
+
+  // route model binding
+  public function showContact(Contact $contact) {
+    // find ritorna null se la chiave non esiste
+    //$contact = Contact::find($id);
+
+    // findOrFail ritorna 404 se la riga non esiste
+    //$contact = Contact::findOrFail($id);
+
+    return view('about.show', compact('contact'));
+  }
+
+  public function edit(Contact $contact) {
+    return view('about.edit', compact('contact'));
+  }
+
+  public function update(AboutRequest $request, Contact $contact) {
+    $data = $request->validated();
+
+    $contact->update($data);
+
+    return redirect()->route('about-us.index');
   }
 }

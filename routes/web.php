@@ -22,6 +22,14 @@ Route::get('/', function () {
 });*/
 
 //Route::get('/about-us', 'App\Http\Controllers\AboutController@show');
-Route::get('/about-us/all', [App\Http\Controllers\AboutController::class, 'index']);
+Route::get('/about-us/all', [App\Http\Controllers\AboutController::class, 'index'])->name('about-us.index');
 Route::get('/about-us', [App\Http\Controllers\AboutController::class, 'show'])->name('about-us.show');
 Route::post('/about-us', [App\Http\Controllers\AboutController::class, 'store'])->name('about-us');
+// passaggio di un parametro sulla route
+/*Route::get('/about-us/{id}', [App\Http\Controllers\AboutController::class, 'showContact'])->name('about-us.show-contact');*/
+
+// Route model binding
+Route::get('/about-us/{contact}', [App\Http\Controllers\AboutController::class, 'showContact'])->name('about-us.show-contact');
+
+Route::get('/about-us/{contact}/edit', [App\Http\Controllers\AboutController::class, 'edit'])->name('about-us.edit');
+Route::put('/about-us/{contact}', [App\Http\Controllers\AboutController::class, 'update'])->name('about-us.update');

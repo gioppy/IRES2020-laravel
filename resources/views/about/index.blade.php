@@ -15,9 +15,13 @@
     <tbody>
     @foreach($contacts as $contact)
       <tr>
-        <td>{{ $contact['id'] }}</td>
-        <td>{{ $contact['nome'] }}</td>
-        <td></td>
+        <td>{{ $contact->id }}</td>
+        <td>{{ $contact->nome }}</td>
+        <td>
+          <a href="{{ route('about-us.show-contact', [$contact]) }}">Show</a>
+          <a href="{{ route('about-us.edit', [$contact]) }}">Edit</a>
+          <a href="#">Delete</a>
+        </td>
       </tr>
     @endforeach
     </tbody>
