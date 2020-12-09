@@ -42,3 +42,6 @@ Route::delete('/about-us/{contact}', [App\Http\Controllers\AboutController::clas
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/clocks', [App\Http\Controllers\ClockController::class, 'create'])->name('clocks.create');
+Route::post('/clocks', [App\Http\Controllers\ClockController::class, 'store'])->name('clocks.store');
